@@ -9,13 +9,16 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import java.awt.*;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 public class JwtFilter extends OncePerRequestFilter {
@@ -89,7 +92,8 @@ public class JwtFilter extends OncePerRequestFilter {
     private void buildErrorResponse(HttpServletResponse response, int statusCode, String errorMessage) throws IOException {
         response.setStatus(statusCode);
         response.getWriter().write(errorMessage);
-        response.setHeader("Content-Type", "application/json");
+        response.setContentType(MediaType.APPLICATION_JSON.getType());
+        response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
     }
 
 
