@@ -5,12 +5,14 @@ import com.myreflectionthoughts.user.datamodel.request.RegistrationRequest;
 import com.myreflectionthoughts.user.datamodel.response.ErrorResponse;
 import com.myreflectionthoughts.user.datamodel.response.LoginResponse;
 import com.myreflectionthoughts.user.datamodel.response.RegistrationResponse;
+import com.myreflectionthoughts.user.dataprovider.service.user.LoginUserImpl;
 import com.myreflectionthoughts.user.dataprovider.service.user.RegisterUserImpl;
 import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,9 +23,11 @@ import static com.myreflectionthoughts.user.config.RestConstant.API_PREFIX;
 public class AuthController {
 
     private final RegisterUserImpl registerUserImpl;
+    private final LoginUserImpl loginUserImpl;
 
-    public AuthController(RegisterUserImpl registerUserImpl){
+    public AuthController(RegisterUserImpl registerUserImpl, LoginUserImpl loginUserImpl){
         this.registerUserImpl = registerUserImpl;
+        this.loginUserImpl = loginUserImpl;
     }
 
     @ApiResponses(value = {
@@ -46,6 +50,6 @@ public class AuthController {
     })
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> register(@RequestBody LoginRequest loginRequest){
-        return ResponseEntity.ok(new LoginResponse());
+        return loginUserImpl.loginUser(loginRequest);
     }
 }
