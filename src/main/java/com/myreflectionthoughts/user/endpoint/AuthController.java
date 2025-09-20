@@ -1,5 +1,6 @@
 package com.myreflectionthoughts.user.endpoint;
 
+import com.myreflectionthoughts.user.config.RestConstant;
 import com.myreflectionthoughts.user.datamodel.request.LoginRequest;
 import com.myreflectionthoughts.user.datamodel.request.RegistrationRequest;
 import com.myreflectionthoughts.user.datamodel.response.ErrorResponse;
@@ -34,7 +35,7 @@ public class AuthController {
             @ApiResponse(responseCode = "201", description = "The user is registered successfully", headers = {@Header(name = "Content-Type", description = "The format of response", schema = @Schema(type = "string")), @Header(name = "X-request-Id", description = "The UUID of the request", schema = @Schema(type = "string"))}, content = @Content(schema = @Schema(implementation = RegistrationResponse.class))),
             @ApiResponse(responseCode = "400", description = "The user input is not acceptable, refer response for more details", headers = {@Header(name = "Content-Type", description = "The format of response", schema = @Schema(type = "string")), @Header(name = "X-request-Id", description = "The UUID of the request", schema = @Schema(type = "string"))}, content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
-    @PostMapping("/register")
+    @PostMapping(RestConstant.REGISTRATION_ENDPOINT)
     public ResponseEntity<RegistrationResponse> register(@RequestBody RegistrationRequest registrationRequest){
         return ResponseEntity.ok(registerUserImpl.registerUser(registrationRequest));
     }
@@ -48,7 +49,7 @@ public class AuthController {
                     content = @Content(schema = @Schema(implementation = RegistrationResponse.class))),
             @ApiResponse(responseCode = "400", description = "The user input is not acceptable, refer response for more details", headers = {@Header(name = "Content-Type", description = "The format of response", schema = @Schema(type = "string")), @Header(name = "X-request-Id", description = "The UUID of the request", schema = @Schema(type = "string"))}, content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
-    @PostMapping("/login")
+    @PostMapping(RestConstant.LOGIN_ENDPOINT)
     public ResponseEntity<LoginResponse> register(@RequestBody LoginRequest loginRequest){
         return loginUserImpl.loginUser(loginRequest);
     }

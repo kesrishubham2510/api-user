@@ -12,4 +12,5 @@ public class UserDetails {
     private String role;
     private String joined;
     private boolean emailVerified;
+    private String nextStep;
 }
