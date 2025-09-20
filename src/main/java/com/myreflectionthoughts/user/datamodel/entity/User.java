@@ -6,10 +6,11 @@ import lombok.Data;
 import org.hibernate.annotations.UuidGenerator;
 
 @Data
-@Entity
-public class User {
+@Entity(name = "users")
+public class User{
 
     @Id
+    @Column(name="userid")
     private String userId;
 
     @Column(name = "firstname")

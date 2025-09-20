@@ -1,5 +1,7 @@
 package com.myreflectionthoughts.user.datamodel.entity;
 
+import com.fasterxml.jackson.databind.util.BeanUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,5 +31,11 @@ public class UserAuth implements UserDetails {
     @Override
     public String getUsername() {
         return null;
+    }
+
+    public User getUser(){
+        User copiedUser  = new User();
+        BeanUtils.copyProperties(this.user, copiedUser);
+        return copiedUser;
     }
 }

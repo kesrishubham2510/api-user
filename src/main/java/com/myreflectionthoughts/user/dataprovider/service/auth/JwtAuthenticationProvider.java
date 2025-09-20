@@ -37,7 +37,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
             throw new InternalAuthenticationServiceException("Token is Invalid, please login again");
         }
 
-        return new UsernamePasswordAuthenticationToken(userDetails.getUsername(),"", userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(userDetails.getUser(),"", userDetails.getAuthorities());
     }
 
     @Override
