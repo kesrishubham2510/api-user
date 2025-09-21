@@ -103,13 +103,13 @@ public class UpdateSelfImpl implements UpdateSelf<UserDetails, UpdateSelfRequest
 
     private void checkEmailUniqueness(String email){
         if(!Objects.isNull(userRepository.findByEmail(email))){
-            throw new UserException("The email is already taken, please use different one");
+            throw new UserException("EMAIL_ALREADY_TAKEN", "The email is already taken, please use different one");
         }
     }
 
     private void checkUsernameUniqueness(String username){
         if(!Objects.isNull(userRepository.findByUsername(username))){
-            throw new UserException("The username is already taken, please use different one");
+            throw new UserException("USERNAME_ALREADY_TAKEN", "The username is already taken, please use different one");
         }
     }
 }

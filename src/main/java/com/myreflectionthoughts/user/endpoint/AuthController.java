@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import static com.myreflectionthoughts.user.config.RestConstant.API_PREFIX;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(API_PREFIX)
 public class AuthController {
 

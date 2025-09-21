@@ -7,11 +7,12 @@ import org.springframework.stereotype.Service;
 @Getter
 @Setter
 public class UserException extends RuntimeException{
-    private String message;
+    private String key;
 
     public UserException(){}
 
-    public UserException(String message){
-        this.message = message;
+    public UserException(String key, String message){
+        super(message);
+        this.key = key;
     }
 }

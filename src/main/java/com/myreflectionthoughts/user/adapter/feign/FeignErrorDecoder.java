@@ -35,16 +35,13 @@ public class FeignErrorDecoder implements ErrorDecoder {
                 authServiceException.setNextStep(jsonNode.get("nextStep").asText());
 
                 return  authServiceException;
-            }else if(jsonNode.has("message")){
-                UserException userException = new UserException();
-                userException.setMessage(jsonNode.get("message").asText());
-
-                return userException;
+            }else if(jsonNode.has("key") && jsonNode.has("message")){
+                return new UserException(jsonNode.get("key").asText(), jsonNode.get("message").asText());
             }else{
-                return new UserException("Something went wrong");
+                return new UserException("SOMETHING_IS_WRONG","Something went wrong");
             }
         }catch (IOException exception) {
-            throw new UserException("Exception occurred while decoding error");
+            throw new UserException("DECODING_ISSUE", "Exception occurred while decoding error");
         }
 
     }

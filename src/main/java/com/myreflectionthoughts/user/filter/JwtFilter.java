@@ -48,6 +48,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if(Objects.isNull(authorizationHeader) || !authorizationHeader.startsWith("Bearer ")){
             String errorMessage = AppUtility.getJsonMessageBody("ErrorResponse");
+            errorMessage = errorMessage.replace("${key}", "TOKEN_REQUIRED");
             errorMessage = errorMessage.replace("${message}", "Authorization header with `Bearer ` scheme is required");
             buildErrorResponse(response, 401, errorMessage);
             return;
@@ -65,11 +66,13 @@ public class JwtFilter extends OncePerRequestFilter {
 
             }catch (ExpiredJwtException expiredJwtException){
                 String errorMessage = AppUtility.getJsonMessageBody("ErrorResponse");
+                errorMessage = errorMessage.replace("${key}", "TOKEN_EXPIRED");
                 errorMessage = errorMessage.replace("${message}", "Token Expired");
                 buildErrorResponse(response, 401, errorMessage);
                 return;
             }catch (JwtException | InternalAuthenticationServiceException jwtValidationException){
                 String errorMessage = AppUtility.getJsonMessageBody("ErrorResponse");
+                errorMessage = errorMessage.replace("${key}", "INVALID_TOKEN");
                 errorMessage = errorMessage.replace("${message}", jwtValidationException.getMessage()+"\n Please login again");
                 buildErrorResponse(response, 401, errorMessage);
                 return;
