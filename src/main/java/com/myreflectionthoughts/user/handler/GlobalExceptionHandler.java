@@ -30,4 +30,14 @@ public class GlobalExceptionHandler {
                 .body(body);
     }
 
+    @ExceptionHandler(UnsupportedOperationException.class)
+    public ResponseEntity<Map<String, String>> handleUnSupportedException(UnsupportedOperationException ex) {
+        Map<String, String> body = Map.of("key", "NOT_SUPPORTED", "message", ex.getMessage());
+        return ResponseEntity
+                .status(501)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(body);
+    }
+
+
 }
