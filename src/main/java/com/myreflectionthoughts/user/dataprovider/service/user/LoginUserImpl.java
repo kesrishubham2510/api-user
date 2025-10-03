@@ -2,7 +2,6 @@ package com.myreflectionthoughts.user.dataprovider.service.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myreflectionthoughts.user.adapter.adapter.AuthAdapter;
-import com.myreflectionthoughts.user.adapter.feign.FeignErrorDecoder;
 import com.myreflectionthoughts.user.datamodel.request.LoginRequest;
 import com.myreflectionthoughts.user.datamodel.response.LoginResponse;
 import com.myreflectionthoughts.user.usecase.LoginUser;
@@ -51,6 +50,8 @@ public class LoginUserImpl implements LoginUser {
                 System.out.println("Key:- "+key+", is empty");
             }
         });
+
+
 
         try {
             if(!Objects.isNull(authServerResponse.body())){
